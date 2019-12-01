@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.geonullos.Component.CustomeListElement;
 import com.example.geonullos.Data.CountriesService;
 import com.example.geonullos.Data.Country;
 import com.example.geonullos.R;
@@ -32,21 +33,18 @@ public class CountryList extends Fragment {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> arrayList;
 
+    View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragmentlist, container, false);
+        view = inflater.inflate(R.layout.fragmentlist, container, false);
 
         String continent = this.getArguments().getString("continent");
 
         list = view.findViewById(R.id.countryList);
         arrayList = new ArrayList<String>();
 
-        // Adapter: You need three parameters 'the context, id of the layout (it will be where the data is shown),
-        // and the array that contains the data
-        adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, arrayList);
 
-        // Here, you set the data in your ListView
-        list.setAdapter(adapter);
 
         CountriesService countriesService = new Retrofit.Builder()
                 .baseUrl(CountriesService.ENDPOINT)
@@ -73,10 +71,18 @@ public class CountryList extends Fragment {
     }
 
     public void fillList(List<Country> countries) {
+        CustomeListElement customAdapter = new CustomeListElement(view.getContext(), countries);
+        list.setAdapter(customAdapter);
+
+        // Adapter: You need three parameters 'the context, id of the layout (it will be where the data is shown),
+        // and the array that contains the data
+
+        // Here, you set the data in your ListView
+        //list.setAdapter(adapter);
         for(Country country : countries){
             arrayList.add(country.getName());
             // next thing you have to do is check if your adapter has changed
-            adapter.notifyDataSetChanged();
+           // adapter.notifyDataSetChanged();
         }
     }
 }

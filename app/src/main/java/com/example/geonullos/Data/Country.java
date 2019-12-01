@@ -4,6 +4,7 @@ public class Country {
     private String name;
     private String capital;
     private String demonym;
+    private String flag;
 
     public String getName() {
         return name;
@@ -27,5 +28,13 @@ public class Country {
 
     public void setDemonym(String demonym) {
         this.demonym = demonym;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }
