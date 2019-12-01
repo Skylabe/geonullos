@@ -48,16 +48,16 @@ public class Home extends AppCompatActivity {
                         param = "afrique";
                         break;
                     case 1:
-                        param = "adn";
+                        param = "amerique";
                         break;
                     case 2:
-                        param = "ads";
-                        break;
-                    case 3:
                         param = "asie";
                         break;
-                    case 4:
+                    case 3:
                         param = "europe";
+                        break;
+                    case 4:
+                        param = "oceanie";
                         break;
                 }
                 Intent mainActivity = new Intent(Home.this, MainActivity.class);
@@ -74,11 +74,11 @@ public class Home extends AppCompatActivity {
     }
 
     private void ajouterVilles() {
-        continents.add(new Continent("Afrique", "afrique"));
-        continents.add(new Continent("Amérique du nord", "adn"));
-        continents.add(new Continent("Amérique du sud", "ads"));
-        continents.add(new Continent("Asie", "asie"));
+        continents.add(new Continent("Africa", "afrique"));
+        continents.add(new Continent("Americas", "amerique"));
+        continents.add(new Continent("Asia", "asie"));
         continents.add(new Continent("Europe", "europe"));
+        continents.add(new Continent("Oceania", "oceanie"));
     }
 
 }

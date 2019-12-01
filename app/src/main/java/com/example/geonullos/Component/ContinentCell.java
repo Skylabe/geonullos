@@ -34,12 +34,11 @@ public class ContinentCell extends RecyclerView.ViewHolder{
                 imageView.setImageResource(R.drawable.afrique);
                 break;
 
-            case "adn":
-                imageView.setImageResource(R.drawable.adn);
+            case "amerique":
+                imageView.setImageResource(R.drawable.amerique);
                 break;
-
-            case "ads":
-                imageView.setImageResource(R.drawable.ads);
+            case "oceanie":
+                imageView.setImageResource(R.drawable.oceanie);
                 break;
 
         }

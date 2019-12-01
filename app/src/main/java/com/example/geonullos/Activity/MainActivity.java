@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
-import com.example.geonullos.CountryList;
+import com.example.geonullos.Fragment.CountryList;
 import com.example.geonullos.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,8 +19,26 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         Log.w("INFO", extras.toString());
         continent = extras.getString("chosenContinent");
-
-
+        String title = "";
+        switch(continent){
+            case "afrique":
+                continent = "africa";
+                title = "Africa";
+                break;
+            case "amerique":
+                title = "Americas";
+                break;
+            case "asie":
+                title = "Asia";
+                break;
+            case "europe":
+                title = "Europe";
+                break;
+            case "oceanie":
+                title = "Oceania";
+                break;
+        }
+        setTitle(title);
         setContentView(R.layout.mainactivity);
 
 

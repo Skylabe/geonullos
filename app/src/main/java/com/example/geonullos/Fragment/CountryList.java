@@ -1,4 +1,4 @@
-package com.example.geonullos;
+package com.example.geonullos.Fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,11 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.geonullos.R;
+
 import java.util.ArrayList;
 
 
 public class CountryList extends Fragment {
-    private TextView title;
     private ListView list;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> arrayList;
@@ -23,10 +24,9 @@ public class CountryList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmentlist, container, false);
-        //Instancier vos composants graphique ici (faîtes vos findViewById)
-        title = view.findViewById(R.id.title);
+
         String continent = this.getArguments().getString("continent");
-        title.setText(continent);
+        // TEST
 
         list = view.findViewById(R.id.countryList);
         arrayList = new ArrayList<String>();
