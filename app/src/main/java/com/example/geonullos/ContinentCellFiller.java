@@ -7,28 +7,28 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class ContinentCellFiller extends RecyclerView.Adapter<ContinentCell> {
 
-    List<MyObject> list;
+    List<Continent> list;
 
     //ajouter un constructeur prenant en entrée une liste
-    public MyAdapter(List<MyObject> list) {
+    public ContinentCellFiller(List<Continent> list) {
         this.list = list;
     }
 
     //cette fonction permet de créer les viewHolder
     //et par la même indiquer la vue à inflater (à partir des layout xml)
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
+    public ContinentCell onCreateViewHolder(ViewGroup viewGroup, int itemType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card,viewGroup,false);
-        return new MyViewHolder(view);
+        return new ContinentCell(view);
     }
 
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
-    public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
-        MyObject myObject = list.get(position);
-        myViewHolder.bind(myObject);
+    public void onBindViewHolder(ContinentCell continentCell, int position) {
+        Continent continent = list.get(position);
+        continentCell.bind(continent);
     }
 
     @Override
