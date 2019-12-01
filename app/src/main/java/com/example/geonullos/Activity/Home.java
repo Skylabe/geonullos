@@ -1,5 +1,6 @@
-package com.example.geonullos;
+package com.example.geonullos.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -7,6 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.geonullos.Data.Continent;
+import com.example.geonullos.Data.ContinentCellFiller;
+import com.example.geonullos.Data.RecyclerItemClickListener;
+import com.example.geonullos.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +56,13 @@ public class Home extends AppCompatActivity {
                     case 3:
                         param = "asie";
                         break;
-                    case 5:
+                    case 4:
                         param = "europe";
                         break;
                 }
-                Toast.makeText(view.getContext(), param, Toast.LENGTH_SHORT).show();
+                Intent mainActivity = new Intent(Home.this, MainActivity.class);
+                mainActivity.putExtra("chosenContinent", param);
+                startActivity(mainActivity);
 
             }
 

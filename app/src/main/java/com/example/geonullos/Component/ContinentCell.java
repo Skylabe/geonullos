@@ -1,4 +1,4 @@
-package com.example.geonullos;
+package com.example.geonullos.Component;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.geonullos.R;
-import com.squareup.picasso.Picasso;
 
 public class ContinentCell extends RecyclerView.ViewHolder{
 
@@ -20,7 +19,7 @@ public class ContinentCell extends RecyclerView.ViewHolder{
         imageView = (ImageView) itemView.findViewById(R.id.image);
     }
 
-    public void bind(Continent continent){
+    public void bind(com.example.geonullos.Data.Continent continent){
         textViewView.setText(continent.getText());
         switch(continent.getImageName()){
             case "europe":

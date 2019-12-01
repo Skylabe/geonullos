@@ -1,4 +1,4 @@
-package com.example.geonullos;
+package com.example.geonullos.Data;
 
 public class Continent {
     private String text;

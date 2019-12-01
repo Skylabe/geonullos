@@ -1,4 +1,4 @@
-package com.example.geonullos;
+package com.example.geonullos.Data;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
