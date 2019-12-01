@@ -26,15 +26,19 @@ public class MainActivity extends AppCompatActivity {
                 title = "Africa";
                 break;
             case "amerique":
+                continent = "americas";
                 title = "Americas";
                 break;
             case "asie":
+                continent = "asia";
                 title = "Asia";
                 break;
             case "europe":
+                continent = "europe";
                 title = "Europe";
                 break;
             case "oceanie":
+                continent = "oceania";
                 title = "Oceania";
                 break;
         }
