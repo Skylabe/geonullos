@@ -40,6 +40,8 @@ public class ContinentCell extends RecyclerView.ViewHolder{
             case "oceanie":
                 imageView.setImageResource(R.drawable.oceanie);
                 break;
+            case "cellfav":
+                imageView.setImageResource(R.drawable.cellfav);
 
         }
     }

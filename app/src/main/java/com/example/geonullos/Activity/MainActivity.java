@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
                 continent = "oceania";
                 title = "Oceania";
                 break;
+            case "favorites":
+                continent = "favorites";
+                title = "Favorites";
+                break;
         }
         setTitle(title);
         setContentView(R.layout.mainactivity);

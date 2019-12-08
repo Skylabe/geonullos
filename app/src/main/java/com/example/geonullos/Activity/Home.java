@@ -59,6 +59,9 @@ public class Home extends AppCompatActivity {
                     case 4:
                         param = "oceanie";
                         break;
+                    case 5:
+                        param = "favorites";
+                        break;
                 }
                 Intent mainActivity = new Intent(Home.this, MainActivity.class);
                 mainActivity.putExtra("chosenContinent", param);
@@ -79,6 +82,7 @@ public class Home extends AppCompatActivity {
         continents.add(new Continent("Asia", "asie"));
         continents.add(new Continent("Europe", "europe"));
         continents.add(new Continent("Oceania", "oceanie"));
+        continents.add(new Continent("Favorites", "cellfav"));
     }
 
 }
