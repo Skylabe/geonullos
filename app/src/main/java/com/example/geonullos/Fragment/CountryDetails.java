@@ -1,6 +1,7 @@
 package com.example.geonullos.Fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.geonullos.Component.CustomeListElement;
 import com.example.geonullos.Data.CountriesService;
 import com.example.geonullos.Data.Country;
+import com.example.geonullos.Data.Utils;
 import com.example.geonullos.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +28,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +47,10 @@ public class CountryDetails extends Fragment implements OnMapReadyCallback  {
     View view;
     private GoogleMap mMap;
 
+    List<Country> favCountries;
+
+    SharedPreferences sharedPreferences;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,15 +62,46 @@ public class CountryDetails extends Fragment implements OnMapReadyCallback  {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+        sharedPreferences = view.getContext().getSharedPreferences("favCountry",Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("listCountries", "");
+        favCountries = gson.fromJson(json, new TypeToken<List<Country>>(){}.getType());
+        if(favCountries == null){
+            favCountries = new ArrayList<Country>();
+        }
+
         final FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fab.setImageResource(R.drawable.fav);
-                Snackbar.make(view, country.getName() + " add to favorite.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(Utils.exists(country, favCountries)){
+                    fab.setImageResource(R.drawable.notfav);
+                    Log.w("DEBUG", "Avant : " + favCountries.toString());
+                    favCountries = Utils.remove(country, favCountries);
+                    Log.w("DEBUG", "Après : " + favCountries.toString());
+                    Snackbar.make(view, country.getName() + " removed from favorite.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    fab.setImageResource(R.drawable.fav);
+                    favCountries.add(country);
+                    Snackbar.make(view, country.getName() + " add to favorite.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
+                Gson gson = new Gson();
+                String json = gson.toJson(favCountries);
+                sharedPreferences
+                        .edit()
+                        .putString("listCountries", json)
+                        .apply();
+
             }
         });
+
+        if(Utils.exists(country, favCountries)){
+            fab.setImageResource(R.drawable.fav);
+        }
 
 
         return view;
