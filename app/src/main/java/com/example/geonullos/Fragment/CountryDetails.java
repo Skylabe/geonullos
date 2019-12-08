@@ -3,6 +3,8 @@ package com.example.geonullos.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,6 +54,15 @@ public class CountryDetails extends Fragment implements OnMapReadyCallback  {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        final FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fab.setImageResource(R.drawable.fav);
+                Snackbar.make(view, country.getName() + " add to favorite.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
 
         return view;
