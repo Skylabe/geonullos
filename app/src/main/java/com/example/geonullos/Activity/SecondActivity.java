@@ -1,0 +1,40 @@
+package com.example.geonullos.Activity;
+
+import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+
+import com.example.geonullos.Fragment.CountryList;
+import com.example.geonullos.R;
+
+public class SecondActivity extends AppCompatActivity {
+    String country;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //Définissez votre vue, rien de plus. Tout sera pris en charge par le fragment qui affiche les données
+        Bundle extras = getIntent().getExtras();
+        Log.w("INFO", extras.toString());
+        country = extras.getString("country");
+
+        setTitle(country);
+        setContentView(R.layout.secondactivity);
+
+
+        //Retrouver votre fragment en utilisant son identifiant (si besoin)
+        //CountryList mainFragment=findViewById(R.id.fragmentlist);
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof CountryList) {
+            Bundle args = new Bundle();
+            args.putString("country", country);
+            fragment.setArguments(args);
+        }
+    }
+
+}
