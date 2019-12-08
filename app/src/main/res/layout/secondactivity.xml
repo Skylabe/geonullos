@@ -6,7 +6,7 @@
         android:id="@+id/fragmentdetails"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:name="com.example.geonullos.Fragment.CountryList"
+        android:name="com.example.geonullos.Fragment.CountryDetails"
         android:orientation="horizontal" >
     </fragment>
 

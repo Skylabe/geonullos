@@ -1,10 +1,15 @@
 package com.example.geonullos.Data;
 
-public class Country {
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.Serializable;
+
+public class Country implements Serializable {
     private String name;
     private String capital;
     private String demonym;
     private String flag;
+    private Double[] latlng;
 
     public String getName() {
         return name;
@@ -36,5 +41,24 @@ public class Country {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public Double[] getLatlng(){
+        return latlng;
+    }
+
+    public void setLatlng(Double[] latlng){
+        this.latlng = latlng;
+    }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "name='" + name + '\'' +
+                ", capital='" + capital + '\'' +
+                ", demonym='" + demonym + '\'' +
+                ", flag='" + flag + '\'' +
+                ", latlng='" + latlng + '\'' +
+                '}';
     }
 }

@@ -17,6 +17,13 @@ import com.example.geonullos.Component.CustomeListElement;
 import com.example.geonullos.Data.CountriesService;
 import com.example.geonullos.Data.Country;
 import com.example.geonullos.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,20 +35,45 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class CountryDetails extends Fragment {
+public class CountryDetails extends Fragment implements OnMapReadyCallback  {
     private Country country;
 
     View view;
+    private GoogleMap mMap;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragmentdetails, container, false);
 
-        String country = this.getArguments().getString("country");
+        country = (Country)this.getArguments().getSerializable("country");
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
 
 
         return view;
     }
 
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney, Australia, and move the camera.
+        Double[] coord = country.getLatlng();
+        LatLng marker = new LatLng(coord[0], coord[1]);
+        mMap.addMarker(new MarkerOptions().position(marker).title("Marker of " + country.getName()));
+        CameraPosition cameraPosition = new CameraPosition.Builder().
+                target(marker).
+                tilt(60).
+                zoom(5).
+                bearing(0).
+                build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+    }
 }

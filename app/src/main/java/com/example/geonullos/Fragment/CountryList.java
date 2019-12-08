@@ -1,18 +1,24 @@
 package com.example.geonullos.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.geonullos.Activity.Home;
+import com.example.geonullos.Activity.MainActivity;
+import com.example.geonullos.Activity.SecondActivity;
 import com.example.geonullos.Component.CustomeListElement;
 import com.example.geonullos.Data.CountriesService;
 import com.example.geonullos.Data.Country;
@@ -30,8 +36,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CountryList extends Fragment {
     private ListView list;
-    private ArrayAdapter<String> adapter;
     private ArrayList<String> arrayList;
+    private ArrayList<Country> arrayCountry = new ArrayList<>();
 
     View view;
 
@@ -44,6 +50,18 @@ public class CountryList extends Fragment {
         list = view.findViewById(R.id.countryList);
         arrayList = new ArrayList<String>();
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the selected item text from ListView
+                Country selectedItem = arrayCountry.get(position);
+
+                Intent secondActivity = new Intent(view.getContext(), SecondActivity.class);
+                secondActivity.putExtra("chosenCountry", selectedItem);
+                startActivity(secondActivity);
+            }
+        });
+
 
 
         CountriesService countriesService = new Retrofit.Builder()
@@ -53,17 +71,18 @@ public class CountryList extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(CountriesService.class);
-        Log.w("INFO", "Continent demandé : " + continent);
         countriesService.listCountry(continent).enqueue(new Callback<List<Country>>() {
 
             @Override
             public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+                Log.w("DEBUG", response.body().toString());
                 List<Country> listCountry = response.body();
                 fillList(listCountry);
             }
 
             @Override
             public void onFailure(Call<List<Country>> call, Throwable t) {
+                Log.w("DEBUG", t.getMessage());
             }
         });
 
@@ -81,6 +100,7 @@ public class CountryList extends Fragment {
         //list.setAdapter(adapter);
         for(Country country : countries){
             arrayList.add(country.getName());
+            arrayCountry.add(country);
             // next thing you have to do is check if your adapter has changed
            // adapter.notifyDataSetChanged();
         }
