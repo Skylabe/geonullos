@@ -8,6 +8,7 @@ import com.pixplicity.sharp.Sharp;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Cache;
@@ -66,5 +67,15 @@ public class Utils {
             }
         }
         return cs;
+    }
+
+    public static List<Country> search(String name, List<Country> cs){
+        List<Country> res = new ArrayList<Country>();
+        for(Country c : cs){
+            if(c.getName().toUpperCase().contains(name.toUpperCase())){
+                res.add(c);
+            }
+        }
+        return res;
     }
 }
