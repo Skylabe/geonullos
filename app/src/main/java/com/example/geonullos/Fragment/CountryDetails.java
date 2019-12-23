@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,9 +79,7 @@ public class CountryDetails extends Fragment implements OnMapReadyCallback  {
             public void onClick(View view) {
                 if(Utils.exists(country, favCountries)){
                     fab.setImageResource(R.drawable.notfav);
-                    Log.w("DEBUG", "Avant : " + favCountries.toString());
                     favCountries = Utils.remove(country, favCountries);
-                    Log.w("DEBUG", "Après : " + favCountries.toString());
                     Snackbar.make(view, country.getName() + " removed from favorite.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 } else {
@@ -102,6 +102,36 @@ public class CountryDetails extends Fragment implements OnMapReadyCallback  {
         if(Utils.exists(country, favCountries)){
             fab.setImageResource(R.drawable.fav);
         }
+
+        String pattern = "###,###.##";
+        DecimalFormat df = new DecimalFormat(pattern);
+
+        ImageView flag = view.findViewById(R.id.flag);
+        Utils.fetchSvg(view.getContext(), country.getFlag(), flag);
+
+        TextView capital = view.findViewById(R.id.capitalTxt);
+        TextView demonym = view.findViewById(R.id.demonymTxt);
+        TextView population = view.findViewById(R.id.populationTxt);
+        TextView density = view.findViewById(R.id.densityTxt);
+        TextView area = view.findViewById(R.id.areaTxt);
+        TextView timezones = view.findViewById(R.id.timezonesTxt);
+
+        capital.setText(capital.getText() + country.getCapital());
+        demonym.setText(demonym.getText() + country.getDemonym());
+        population.setText(population.getText() + df.format(country.getPopulation()) + " habitants");
+        density.setText(density.getText() + df.format(country.getPopulation()/country.getArea()) + " habitants/km2");
+        area.setText(area.getText() + df.format(country.getArea()) + " km2");
+        String txt = "";
+        int i = 0;
+        for(String e : country.getTimezones()){
+            if(i++ == 0){
+                txt+=e;
+            }else{
+                txt+=" ; " + e;
+            }
+        }
+        timezones.setText(timezones.getText() + txt);
+
 
 
         return view;

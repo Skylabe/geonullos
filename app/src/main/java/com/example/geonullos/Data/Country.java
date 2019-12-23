@@ -10,6 +10,10 @@ public class Country implements Serializable {
     private String demonym;
     private String flag;
     private Double[] latlng;
+    private String subregion;
+    private long population;
+    private double area;
+    private String[] timezones;
 
     public String getName() {
         return name;
@@ -49,6 +53,38 @@ public class Country implements Serializable {
 
     public void setLatlng(Double[] latlng){
         this.latlng = latlng;
+    }
+
+    public String getSubregion() {
+        return subregion;
+    }
+
+    public void setSubregion(String subregion) {
+        this.subregion = subregion;
+    }
+
+    public long getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(long population) {
+        this.population = population;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    public String[] getTimezones() {
+        return timezones;
+    }
+
+    public void setTimezones(String[] timezones) {
+        this.timezones = timezones;
     }
 
     @Override
