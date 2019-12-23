@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Définissez votre vue, rien de plus. Tout sera pris en charge par le fragment qui affiche les données
         Bundle extras = getIntent().getExtras();
-        Log.w("INFO", extras.toString());
+
         continent = extras.getString("chosenContinent");
         String title = "";
         switch(continent){
@@ -40,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
             case "oceanie":
                 continent = "oceania";
                 title = "Oceania";
+                break;
+            case "favorites":
+                continent = "favorites";
+                title = "Favorites";
                 break;
         }
         setTitle(title);

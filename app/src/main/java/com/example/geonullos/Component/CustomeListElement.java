@@ -52,7 +52,6 @@ public class CustomeListElement extends BaseAdapter {
         country.setText(countryList.get(i).getName());
         String[] parts = countryList.get(i).getFlag().split("[.]");
         String extension = parts[parts.length-1];
-        Log.w("INFO", "Extension : " + extension);
 
         if(extension.equals("svg")){
             Utils.fetchSvg(view.getContext(), countryList.get(i).getFlag(), icon);

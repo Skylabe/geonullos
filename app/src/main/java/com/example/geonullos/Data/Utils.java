@@ -8,6 +8,8 @@ import com.pixplicity.sharp.Sharp;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Cache;
 import okhttp3.Call;
@@ -46,5 +48,34 @@ public class Utils {
                 stream.close();
             }
         });
+    }
+
+    public static boolean exists(Country c, List<Country> countries){
+        for(Country c2 : countries){
+            if(c.getName().equals(c2.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static List<Country> remove(Country c, List<Country> cs){
+        for(int i = 0 ; i < cs.size() ; i++){
+            if(c.getName().equals(cs.get(i).getName())){
+                cs.remove(i);
+                return cs;
+            }
+        }
+        return cs;
+    }
+
+    public static List<Country> search(String name, List<Country> cs){
+        List<Country> res = new ArrayList<Country>();
+        for(Country c : cs){
+            if(c.getName().toUpperCase().contains(name.toUpperCase())){
+                res.add(c);
+            }
+        }
+        return res;
     }
 }
